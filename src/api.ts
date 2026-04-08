@@ -23,7 +23,7 @@ app.post('/chat', cors(), async (req, res) => {
       },
       body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system, messages })
     });
-    const data = await response.json();
+    const data = await response.json() as any;
     res.json(data);
   } catch(e) {
     res.status(500).json({ error: 'Server error' });
@@ -37,8 +37,8 @@ app.post('/whatsapp', async (req, res) => {
     const userMessage = isStaff ? incomingMsg.slice(6).trim() : incomingMsg;
 
     const system = isStaff
-      ? `You are Atlas, an internal assistant for Colombo Hardware staff. Be direct and fast. Always include item codes. Product list with prices available — answer questions about stock, codes, and pricing accurately.`
-      : `You are Nadia, a friendly customer support assistant for Colombo Hardware, a hardware store in Sri Lanka. Help customers with product inquiries and pricing. Keep responses short and suitable for WhatsApp — no long paragraphs. Prices updated 03.02.2026. We sell: padlocks, door handles, hinges, bolts, screws, plumbing fittings, taps, valves, bathroom accessories, tools and more. Cash and credit prices available.`;
+      ? `You are Atlas, an internal assistant for Colombo Hardware staff. Be direct and fast. Always include item codes. Answer questions about stock, codes, and pricing accurately.`
+      : `You are Nadia, a friendly customer support assistant for Colombo Hardware, a hardware store in Sri Lanka. Help customers with product inquiries and pricing. Keep responses short and suitable for WhatsApp. We sell: padlocks, door handles, hinges, bolts, screws, plumbing fittings, taps, valves, bathroom accessories, tools and more. Cash and credit prices available. Prices updated 03.02.2026.`;
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -55,7 +55,7 @@ app.post('/whatsapp', async (req, res) => {
       })
     });
 
-    const data = await response.json();
+    const data = await response.json() as any;
     const reply = data.content?.[0]?.text || 'Sorry, I could not process that. Please try again.';
 
     res.set('Content-Type', 'text/xml');
