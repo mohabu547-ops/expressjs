@@ -169,9 +169,7 @@ app.post('/chat', cors(), async (req, res) => {
 app.post('/whatsapp', async (req, res) => {
   try {
     const incomingMsg = req.body.Body || '';
-    const isStaff = incomingMsg.toLowerCase().startsWith('staff:');
-    const userMessage = isStaff ? incomingMsg.slice(6).trim() : incomingMsg;
-
+    const userMessage = incomingMsg;
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -182,7 +180,7 @@ app.post('/whatsapp', async (req, res) => {
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 300,
-        system: isStaff ? STAFF_SYSTEM : CUSTOMER_SYSTEM,
+        system: CUSTOMER_SYSTEM,
         messages: [{ role: 'user', content: userMessage }]
       })
     });
