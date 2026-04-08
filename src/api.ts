@@ -133,16 +133,6 @@ STRICT RULES:
 OUR PRODUCTS:
 ${PRODUCTS}`;
 
-const STAFF_SYSTEM = `You are Atlas, internal assistant for Colombo Hardware staff. Prices updated 03.02.2026.
-
-STRICT RULES:
-- ONLY reference products from the list below. Never invent products or prices.
-- Always include item codes in responses.
-- Be direct and fast. Short replies only.
-
-FULL PRODUCT LIST:
-${PRODUCTS}`;
-
 app.get('/', (req, res) => {
   res.json({ status: 'ok' });
 });
@@ -169,7 +159,7 @@ app.post('/chat', cors(), async (req, res) => {
 app.post('/whatsapp', async (req, res) => {
   try {
     const incomingMsg = req.body.Body || '';
-    const userMessage = incomingMsg;
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -181,7 +171,7 @@ app.post('/whatsapp', async (req, res) => {
         model: 'claude-sonnet-4-20250514',
         max_tokens: 300,
         system: CUSTOMER_SYSTEM,
-        messages: [{ role: 'user', content: userMessage }]
+        messages: [{ role: 'user', content: incomingMsg }]
       })
     });
 
