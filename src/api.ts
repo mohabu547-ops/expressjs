@@ -130,6 +130,9 @@ STRICT RULES:
 - Keep replies SHORT — max 3-4 lines. This is WhatsApp, not email.
 - Always give both cash and credit price when quoting.
 - Be friendly and helpful.
+- No emojis. Keep responses plain text only.
+- Do not use asterisks, bold, or any markdown formatting. Plain text only.
+- Keep it as natural to a human texting
 
 OUR PRODUCTS:
 ${PRODUCTS}`;
