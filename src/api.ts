@@ -96,7 +96,7 @@ Footwear	Leather Look Sneaker	White	39/40/41/42/43/44	PU Leather	4	5500
 Footwear	Leather Look Sneaker	Black	39/40/41/42/43/44	PU Leather	4	5500
 Footwear	Slip On	Black	39/40/41/42/43/44	Canvas	4	2800
 Footwear	Sandal	Brown	39/40/41/42/43/44	PU Leather	4	2500
-Footwear	Sandal	Black	39/40/41/42/43/44	PU Leather	4	2500';
+Footwear	Sandal	Black	39/40/41/42/43/44	PU Leather	4	2500;
 
 const CUSTOMER_SYSTEM = `You are Nadia, a WhatsApp customer support assistant for Colombo Hardware, Sri Lanka. Prices updated 03.02.2026. All prices in Sri Lankan Rupees (Rs.).
 
