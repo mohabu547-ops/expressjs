@@ -8,119 +8,95 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const PRODUCTS = `DRYWALL SCREW BLACK 1x8" | Code: MTC-CMB-8-1 | Cash: Rs.630 | Credit: Rs.665
-DRYWALL SCREW BLACK 1-1/4x8" | Code: MTC-CMB-8-3 | Cash: Rs.825 | Credit: Rs.875
-DRYWALL SCREW BLACK 1-1/2x8 | Cash: Rs.840 | Credit: Rs.880
-DRYWALL SCREW BLACK 3x8" | Code: MTC-CMB-8-5 | Cash: Rs.910 | Credit: Rs.975
-commode nail king 16pcs | Code: MTC-CBM-13-20 | Cash: Rs.170 | Credit: Rs.185
-basin nail king 8pcs | Code: MTC-CBM-13-21 | Cash: Rs.215 | Credit: Rs.230
-BOLT & Nuts | Code: MTC-CMB-8 | Cash: Rs.290 | Credit: Rs.300
-304 SUS padlock 11/40WF short | Code: MTC-CMB-9-48 | Cash: Rs.2825 | Credit: Rs.3160
-304 SUS padlock 11/50WF short | Code: MTC-CMB-9-49 | Cash: Rs.3440 | Credit: Rs.3650
-304 SUS padlock 12/40WF long | Code: MTC-CMB-9-50 | Cash: Rs.2900 | Credit: Rs.3200
-304 SUS padlock 12/50WF long | Code: MTC-CMB-9-51 | Cash: Rs.3540 | Credit: Rs.3750
-GLOBE PAD LOCK 401 3/4" | Cash: Rs.2640 | Credit: Rs.2750
-GLOBE PAD LOCK 403 1-1/4" | Cash: Rs.5050 | Credit: Rs.5675
-GLOBE PAD LOCK 404L 1-1/2" | Cash: Rs.6950 | Credit: Rs.7060
-GLOBE PAD LOCK 405 2" | Cash: Rs.11800 | Credit: Rs.12375
-GLOBE PAD LOCK 406 2-1/2" | Cash: Rs.17950 | Credit: Rs.19975
-KEYHOLE MAB | Code: MTC-CBM-11-98 | Cash: Rs.590 | Credit: Rs.610
-DOOR GUARD MX-AB | Code: MTC-CMB-8-69 | Cash: Rs.540 | Credit: Rs.580
-DOOR GUARD MX-SS | Code: MTC-CMB-8-70 | Cash: Rs.540 | Credit: Rs.580
-drawer lock bird 501 | Code: MTC-CBM-13-13 | Cash: Rs.597 | Credit: Rs.640
-bird lock box | Code: MTC-CBM-13-10 | Cash: Rs.945 | Credit: Rs.1010
-DOOR LOCK BODY DOUBLE DOOR | Cash: Rs.3050 | Credit: Rs.3200
-HINGE 3INCH PAIR | Cash: Rs.380 | Credit: Rs.390
-bolt SS 3" | Code: MTC-CBM-11-90 | Cash: Rs.70 | Credit: Rs.75
-bolt SS 4" | Code: MTC-CBM-11-91 | Cash: Rs.80 | Credit: Rs.85
-bolt LR 3" | Code: MTC-CBM-11-92 | Cash: Rs.125 | Credit: Rs.135
-bolt LR 4" | Code: MTC-CBM-11-93 | Cash: Rs.140 | Credit: Rs.150
-BOLT ZXD 4" | Code: MTC-CMB-8-75 | Cash: Rs.155 | Credit: Rs.165
-BOLT ZXD 6" | Cash: Rs.185 | Credit: Rs.195
-BOLT ZXD 8" | Code: MTC-CMB-8-76 | Cash: Rs.215 | Credit: Rs.225
-ARABIC HANDLE SMALL | Cash: Rs.144 | Credit: Rs.180
-ARABIC HANDLE MEDIUM | Cash: Rs.240 | Credit: Rs.280
-ARABIC HANDLE LARGE | Cash: Rs.360 | Credit: Rs.450
-HANDLE 300MM SS/MAB | Cash: Rs.4650 | Credit: Rs.4750
-HANDLE 450MM SS/MAB | Cash: Rs.5525 | Credit: Rs.5625
-HANDLE 600MM SS/MAB | Cash: Rs.6450 | Credit: Rs.6550
-HANDLE 750MM SS/MAB | Cash: Rs.7350 | Credit: Rs.7450
-HANDLE 900MM SS/MAB | Cash: Rs.8750 | Credit: Rs.8850
-ROUND HANDLE T12-96 SS 4" | Code: MTC-CMB-11-80 | Cash: Rs.60 | Credit: Rs.70
-ROUND HANDLE T12-96 SS 6" | Code: MTC-CMB-11-81 | Cash: Rs.75 | Credit: Rs.80
-ROUND HANDLE 8" | Cash: Rs.90 | Credit: Rs.100
-ROUND HANDLE 10" | Cash: Rs.102 | Credit: Rs.112
-ROUND HANDLE 12" | Cash: Rs.160 | Credit: Rs.165
-ROUND HANDLE 14" | Cash: Rs.170 | Credit: Rs.180
-SQ HANDLE 4" | Cash: Rs.260 | Credit: Rs.285
-SQ HANDLE 6" | Code: MTC-CMB-8-72 | Cash: Rs.280 | Credit: Rs.310
-SQ HANDLE 8" | Code: MTC-CMB-8-73 | Cash: Rs.290 | Credit: Rs.320
-SQ HANDLE 12" | Cash: Rs.475 | Credit: Rs.490
-SQ HANDLE 14" | Cash: Rs.500 | Credit: Rs.520
-DRAWER RAILING 16" BLACK | Cash: Rs.615 | Credit: Rs.640
-DRAWER RAILING 20" BLACK | Cash: Rs.770 | Credit: Rs.800
-Glass shelf bracket 8MM | Code: MTC-CMB-8-93 | Cash: Rs.105 | Credit: Rs.117
-Glass shelf bracket 10MM | Code: MTC-CMB-8-94 | Cash: Rs.120 | Credit: Rs.135
-Velcro pad 4" SLIM RED | Cash: Rs.125 | Credit: Rs.145
-Velcro pad 4.5" SLIM RED | Cash: Rs.135 | Credit: Rs.185
-Velcro paper P40 4" | Cash: Rs.11 | Credit: Rs.13
-Velcro paper P60 4" | Cash: Rs.11 | Credit: Rs.13
-Velcro paper P80 4" | Cash: Rs.11 | Credit: Rs.13
-Velcro paper P100 4" | Cash: Rs.11 | Credit: Rs.13
-Flap disc 4" P120 | Cash: Rs.85 | Credit: Rs.93
-Flap disc 4.5" | Cash: Rs.108 | Credit: Rs.115
-dual flush button | Code: MTC-CMB-9-81 | Cash: Rs.145 | Credit: Rs.160
-floating ball valve 1/2" | Cash: Rs.1040 | Credit: Rs.1075
-union valve PVC | Cash: Rs.180 | Credit: Rs.200
-WESDA SHELF SQ 001-500 | Cash: Rs.1750 | Credit: Rs.2150
-WESDA SHELF SQ 001-400 | Cash: Rs.585 | Credit: Rs.610
-WESDA TOWEL BAR 6001 RD | Cash: Rs.550 | Credit: Rs.575
-WESDA TOWEL BAR SQ A067 | Cash: Rs.1190 | Credit: Rs.1375
-WESDA SOAP DISH W-602 | Cash: Rs.530 | Credit: Rs.605
-SOAP DISH W-401 | Cash: Rs.300 | Credit: Rs.345
-soap basket 1207-14 | Cash: Rs.1500 | Credit: Rs.1675
-Soap dish 1207-15 | Cash: Rs.1500 | Credit: Rs.1675
-Tooth Brush Holder 1207-16 | Cash: Rs.1500 | Credit: Rs.1675
-Corner Basket 1207-50 | Cash: Rs.1550 | Credit: Rs.1725
-Seat Cover white | Cash: Rs.1350 | Credit: Rs.1475
-plastic bidet set | Cash: Rs.900 | Credit: Rs.960
-Barrel nipple 1/2" | Cash: Rs.56 | Credit: Rs.63
-Barrel nipple 1" | Cash: Rs.152 | Credit: Rs.170
-STOP TAP 0.5 | Cash: Rs.2500 | Credit: Rs.2750
-STOP TAP 0.75 | Cash: Rs.2850 | Credit: Rs.2975
-BIB TAP PLUMBER | Cash: Rs.2800 | Credit: Rs.2975
-BASIN TAP PLUMBER | Cash: Rs.2750 | Credit: Rs.2850
-GALAXY BASIN TAP | Cash: Rs.1300 | Credit: Rs.1500
-GALAXY ANGLE VALVE | Cash: Rs.780 | Credit: Rs.1000
-faucet long | Code: MTC-CMB-9-47 | Cash: Rs.4650 | Credit: Rs.5100
-ball valve Venus 1/2" | Cash: Rs.640 | Credit: Rs.675
-ball valve Venus 3/4" | Cash: Rs.1120 | Credit: Rs.1175
-ball valve Venus 1" | Cash: Rs.1600 | Credit: Rs.1625
-Bottle Trap CP | Cash: Rs.1150 | Credit: Rs.1200
-silver waste | Cash: Rs.520 | Credit: Rs.550
-rubber waste | Cash: Rs.465 | Credit: Rs.490
-shower 6x6 | Cash: Rs.1050 | Credit: Rs.1150
-telephone shower 1207-32 | Cash: Rs.625 | Credit: Rs.675
-telephone shower BRASS | Cash: Rs.1750 | Credit: Rs.1955
-Floating Switch 1.5M | Cash: Rs.525 | Credit: Rs.560
-Floating Switch 2M | Cash: Rs.560 | Credit: Rs.600
-sensor switch CMX-2 | Cash: Rs.300 | Credit: Rs.320
-MASION TOWEL F-TECH 6" | Cash: Rs.190 | Credit: Rs.215
-MASION TOWEL F-TECH 7" | Cash: Rs.205 | Credit: Rs.230
-MASION TOWEL F-TECH 8" | Cash: Rs.210 | Credit: Rs.245
-MASION TOWEL F-TECH 9" | Cash: Rs.226 | Credit: Rs.265
-MASION TOWEL F-TECH 10" | Cash: Rs.240 | Credit: Rs.280
-HACK SAW FRAME | Code: MTC-CMB-11-75 | Cash: Rs.325 | Credit: Rs.345
-FOLDABLE KNIFE | Cash: Rs.360 | Credit: Rs.380
-BICYCLE LOCK small | Cash: Rs.1250 | Credit: Rs.1350
-BICYCLE LOCK medium | Cash: Rs.1350 | Credit: Rs.1450
-BICYCLE LOCK large | Cash: Rs.1450 | Credit: Rs.1550
-MEASURING TAPE 5M | Cash: Rs.385 | Credit: Rs.400
-Bending spanner 10" | Cash: Rs.290 | Credit: Rs.320
-pliers 8" | Code: MTC-CMB-8-58 | Cash: Rs.235 | Credit: Rs.265
-Tin shears 12" | Cash: Rs.1720 | Credit: Rs.1750
-shifter wrench 8" | Cash: Rs.440 | Credit: Rs.460
-wrench 10" | Cash: Rs.600 | Credit: Rs.630`;
+const PRODUCTS = `T-Shirts	Basic Crew Neck Tee	White	XS/S/M/L/XL/XXL	100% Cotton	6	850
+T-Shirts	Basic Crew Neck Tee	Black	XS/S/M/L/XL/XXL	100% Cotton	6	850
+T-Shirts	Basic Crew Neck Tee	Navy	XS/S/M/L/XL/XXL	100% Cotton	6	850
+T-Shirts	Basic Crew Neck Tee	Grey Marl	XS/S/M/L/XL/XXL	100% Cotton	6	850
+T-Shirts	Oversized Tee	White	S/M/L/XL/XXL	Cotton Blend	6	1150
+T-Shirts	Oversized Tee	Black	S/M/L/XL/XXL	Cotton Blend	6	1150
+T-Shirts	Oversized Tee	Beige	S/M/L/XL/XXL	Cotton Blend	6	1150
+T-Shirts	Polo Shirt	White	S/M/L/XL/XXL	Pique Cotton	6	1450
+T-Shirts	Polo Shirt	Black	S/M/L/XL/XXL	Pique Cotton	6	1450
+T-Shirts	Polo Shirt	Navy	S/M/L/XL/XXL	Pique Cotton	6	1450
+T-Shirts	Graphic Print Tee	White/Multi	S/M/L/XL	100% Cotton	6	1250
+T-Shirts	Graphic Print Tee	Black/Multi	S/M/L/XL	100% Cotton	6	1250
+T-Shirts	V-Neck Tee	White	XS/S/M/L/XL	Cotton Blend	6	950
+T-Shirts	V-Neck Tee	Black	XS/S/M/L/XL	Cotton Blend	6	950
+T-Shirts	Long Sleeve Tee	White	S/M/L/XL	100% Cotton	6	1100
+T-Shirts	Long Sleeve Tee	Black	S/M/L/XL	100% Cotton	6	1100
+Shirts	Oxford Button Down	White	S/M/L/XL/XXL	Cotton Oxford	4	2800
+Shirts	Oxford Button Down	Light Blue	S/M/L/XL/XXL	Cotton Oxford	4	2800
+Shirts	Oxford Button Down	Pink	S/M/L/XL/XXL	Cotton Oxford	4	2800
+Shirts	Linen Shirt	White	S/M/L/XL	100% Linen	4	3200
+Shirts	Linen Shirt	Beige	S/M/L/XL	100% Linen	4	3200
+Shirts	Linen Shirt	Sage Green	S/M/L/XL	100% Linen	4	3200
+Shirts	Flannel Check Shirt	Red/Black	S/M/L/XL/XXL	Cotton Flannel	4	2600
+Shirts	Flannel Check Shirt	Blue/Grey	S/M/L/XL/XXL	Cotton Flannel	4	2600
+Shirts	Slim Fit Dress Shirt	White	S/M/L/XL	Cotton Poplin	4	3500
+Shirts	Slim Fit Dress Shirt	Black	S/M/L/XL	Cotton Poplin	4	3500
+Trousers	Slim Chino	Khaki	28/30/32/34/36	98% Cotton 2% Elastane	4	3800
+Trousers	Slim Chino	Navy	28/30/32/34/36	98% Cotton 2% Elastane	4	3800
+Trousers	Slim Chino	Black	28/30/32/34/36	98% Cotton 2% Elastane	4	3800
+Trousers	Slim Chino	Olive	28/30/32/34/36	98% Cotton 2% Elastane	4	3800
+Trousers	Cargo Pants	Black	S/M/L/XL/XXL	100% Cotton	4	4200
+Trousers	Cargo Pants	Khaki	S/M/L/XL/XXL	100% Cotton	4	4200
+Trousers	Jogger Pants	Black	S/M/L/XL	Cotton Fleece	4	2800
+Trousers	Jogger Pants	Grey	S/M/L/XL	Cotton Fleece	4	2800
+Trousers	Formal Trousers	Black	28/30/32/34/36	Polyester Blend	4	4500
+Trousers	Formal Trousers	Charcoal	28/30/32/34/36	Polyester Blend	4	4500
+Trousers	Linen Trousers	White	S/M/L/XL	100% Linen	4	3600
+Trousers	Linen Trousers	Beige	S/M/L/XL	100% Linen	4	3600
+Jeans	Slim Fit Jeans	Dark Wash	28/30/32/34/36	98% Cotton 2% Elastane	4	4800
+Jeans	Slim Fit Jeans	Medium Wash	28/30/32/34/36	98% Cotton 2% Elastane	4	4800
+Jeans	Slim Fit Jeans	Black	28/30/32/34/36	98% Cotton 2% Elastane	4	4800
+Jeans	Straight Fit Jeans	Dark Wash	28/30/32/34/36	100% Cotton	4	4500
+Jeans	Straight Fit Jeans	Light Wash	28/30/32/34/36	100% Cotton	4	4500
+Jeans	Skinny Jeans	Black	26/28/30/32/34	95% Cotton 5% Elastane	4	4600
+Jeans	Skinny Jeans	Dark Wash	26/28/30/32/34	95% Cotton 5% Elastane	4	4600
+Hoodies	Pullover Hoodie	Black	XS/S/M/L/XL/XXL	Cotton Fleece	4	3200
+Hoodies	Pullover Hoodie	White	XS/S/M/L/XL/XXL	Cotton Fleece	4	3200
+Hoodies	Pullover Hoodie	Grey Marl	XS/S/M/L/XL/XXL	Cotton Fleece	4	3200
+Hoodies	Zip Up Hoodie	Black	S/M/L/XL/XXL	Cotton Fleece	4	3600
+Hoodies	Zip Up Hoodie	Navy	S/M/L/XL/XXL	Cotton Fleece	4	3600
+Hoodies	Crewneck Sweatshirt	Black	XS/S/M/L/XL	Cotton Fleece	4	2800
+Hoodies	Crewneck Sweatshirt	Grey Marl	XS/S/M/L/XL	Cotton Fleece	4	2800
+Hoodies	Crewneck Sweatshirt	Beige	XS/S/M/L/XL	Cotton Fleece	4	2800
+Jackets	Bomber Jacket	Black	S/M/L/XL	Nylon Shell	2	8500
+Jackets	Bomber Jacket	Olive	S/M/L/XL	Nylon Shell	2	8500
+Jackets	Denim Jacket	Light Wash	S/M/L/XL	100% Cotton Denim	2	7800
+Jackets	Denim Jacket	Dark Wash	S/M/L/XL	100% Cotton Denim	2	7800
+Jackets	Windbreaker	Black	S/M/L/XL/XXL	Polyester	2	6500
+Jackets	Windbreaker	Navy	S/M/L/XL/XXL	Polyester	2	6500
+Jackets	Leather Look Jacket	Black	S/M/L/XL	PU Leather	2	12500
+Jackets	Puffer Jacket	Black	S/M/L/XL/XXL	Polyester Fill	2	9800
+Jackets	Puffer Jacket	Navy	S/M/L/XL/XXL	Polyester Fill	2	9800
+Shorts	Chino Shorts	Khaki	28/30/32/34/36	Cotton	4	2200
+Shorts	Chino Shorts	Navy	28/30/32/34/36	Cotton	4	2200
+Shorts	Chino Shorts	Black	28/30/32/34/36	Cotton	4	2200
+Shorts	Denim Shorts	Light Wash	28/30/32/34	100% Cotton	4	2500
+Shorts	Athletic Shorts	Black	S/M/L/XL	Polyester	4	1800
+Shorts	Athletic Shorts	Navy	S/M/L/XL	Polyester	4	1800
+Shorts	Swim Shorts	Blue Print	S/M/L/XL	Polyester	4	2100
+Shorts	Swim Shorts	Black	S/M/L/XL	Polyester	4	2100
+Accessories	Canvas Belt	Black	S/M/L/XL	Canvas/Metal	6	680
+Accessories	Canvas Belt	Brown	S/M/L/XL	Canvas/Metal	6	680
+Accessories	Leather Look Belt	Black	S/M/L/XL	PU Leather	6	1200
+Accessories	Beanie Hat	Black	One Size	Acrylic Knit	6	850
+Accessories	Beanie Hat	Grey	One Size	Acrylic Knit	6	850
+Accessories	Baseball Cap	Black	One Size	Cotton Twill	6	1100
+Accessories	Baseball Cap	Navy	One Size	Cotton Twill	6	1100
+Accessories	Scarf	Black/White	One Size	Acrylic	4	950
+Accessories	Wallet	Black	Standard	PU Leather	4	1800
+Accessories	Wallet	Brown	Standard	PU Leather	4	1800
+Accessories	Tote Bag	Black	Standard	Canvas	4	1200
+Accessories	Tote Bag	Natural	Standard	Canvas	4	1200
+Footwear	Canvas Sneaker	White	39/40/41/42/43/44	Canvas Upper	4	3800
+Footwear	Canvas Sneaker	Black	39/40/41/42/43/44	Canvas Upper	4	3800
+Footwear	Leather Look Sneaker	White	39/40/41/42/43/44	PU Leather	4	5500
+Footwear	Leather Look Sneaker	Black	39/40/41/42/43/44	PU Leather	4	5500
+Footwear	Slip On	Black	39/40/41/42/43/44	Canvas	4	2800
+Footwear	Sandal	Brown	39/40/41/42/43/44	PU Leather	4	2500
+Footwear	Sandal	Black	39/40/41/42/43/44	PU Leather	4	2500';
 
 const CUSTOMER_SYSTEM = `You are Nadia, a WhatsApp customer support assistant for Colombo Hardware, Sri Lanka. Prices updated 03.02.2026. All prices in Sri Lankan Rupees (Rs.).
 
