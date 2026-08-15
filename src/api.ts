@@ -130,7 +130,7 @@ app.post('/chat', cors(), async (req, res) => {
 app.post('/whatsapp', async (req, res) => {
   try {
     const incomingMsg = req.body.Body || '';
-    const customerPhone = req.body.From || 'unknown';
+    const customerPhone = (req.body.From || 'unknown').replace('whatsapp:', '').trim();
 
     // Get or create conversation for this customer
     if (!conversations[customerPhone]) {
