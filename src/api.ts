@@ -7,6 +7,21 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Store conversation history per customer phone number
+// Memory lasts 24 hours then resets
+const conversations: Record<string, { messages: any[], lastActive: number }> = {};
+const MEMORY_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+// Clean up old conversations every hour
+setInterval(() => {
+  const now = Date.now();
+  for (const phone in conversations) {
+    if (now - conversations[phone].lastActive > MEMORY_DURATION) {
+      delete conversations[phone];
+    }
+  }
+}, 60 * 60 * 1000);
+
 const PRODUCTS = `T-SHIRTS:
 Basic Crew Neck Tee | Colors: White, Black, Navy, Grey Marl | Sizes: XS-XXL | Price: $18
 Oversized Tee | Colors: White, Black, Beige | Sizes: S-XXL | Price: $24
@@ -71,13 +86,15 @@ const CUSTOMER_SYSTEM = `You are Zara, a friendly fashion assistant for Nova Fas
 STRICT RULES:
 - ONLY recommend products from the list below. Never make up products or prices.
 - If something is not in the list, say we don't carry it and suggest something similar we do have.
-- Keep replies SHORT and conversational — this is a chat, not an essay.
+- Keep replies SHORT and conversational — max 2-3 lines. This is WhatsApp not an essay.
 - Always mention the price when recommending a product.
 - Be stylish, friendly and helpful. Use 1 emoji max per message.
 - No asterisks, bold, or markdown formatting. Plain text only.
 - Use a blank line between each product so replies are easy to read.
 - When someone asks about sizes or colors, list what is available for that specific item.
 - If someone gives a budget, only recommend items within that budget.
+- If asked about store hours, location, delivery or anything not in the product list, say: "For that you can reach us directly on WhatsApp at +1 234 567 8900 or email hello@novafashion.com"
+- You remember previous messages in this conversation so refer back to them naturally.
 
 OUR PRODUCTS:
 ${PRODUCTS}`;
@@ -113,6 +130,26 @@ app.post('/chat', cors(), async (req, res) => {
 app.post('/whatsapp', async (req, res) => {
   try {
     const incomingMsg = req.body.Body || '';
+    const customerPhone = req.body.From || 'unknown';
+
+    // Get or create conversation for this customer
+    if (!conversations[customerPhone]) {
+      conversations[customerPhone] = { messages: [], lastActive: Date.now() };
+    }
+
+    // Update last active time
+    conversations[customerPhone].lastActive = Date.now();
+
+    // Add customer message to history
+    conversations[customerPhone].messages.push({
+      role: 'user',
+      content: incomingMsg
+    });
+
+    // Keep only last 20 messages to avoid hitting token limits
+    if (conversations[customerPhone].messages.length > 20) {
+      conversations[customerPhone].messages = conversations[customerPhone].messages.slice(-20);
+    }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -125,12 +162,18 @@ app.post('/whatsapp', async (req, res) => {
         model: 'claude-sonnet-4-6',
         max_tokens: 150,
         system: CUSTOMER_SYSTEM,
-        messages: [{ role: 'user', content: incomingMsg }]
+        messages: conversations[customerPhone].messages
       })
     });
 
     const data = await response.json() as any;
     const reply = data.content?.[0]?.text || 'Sorry, I could not process that. Please try again.';
+
+    // Add bot reply to history
+    conversations[customerPhone].messages.push({
+      role: 'assistant',
+      content: reply
+    });
 
     res.set('Content-Type', 'text/xml');
     res.send(`<?xml version="1.0" encoding="UTF-8"?><Response><Message>${reply}</Message></Response>`);
