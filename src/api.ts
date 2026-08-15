@@ -123,7 +123,7 @@ app.post('/whatsapp', async (req, res) => {
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
-        max_tokens: 300,
+        max_tokens: 150,
         system: CUSTOMER_SYSTEM,
         messages: [{ role: 'user', content: incomingMsg }]
       })
