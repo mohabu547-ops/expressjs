@@ -133,21 +133,21 @@ app.post('/whatsapp', async (req, res) => {
     const incomingMsg = req.body.Body || '';
     const customerPhone = (req.body.From || 'unknown').replace('whatsapp:', '').trim();
 
-    // Get or create conversation for this customer
+
     if (!conversations[customerPhone]) {
       conversations[customerPhone] = { messages: [], lastActive: Date.now() };
     }
 
-    // Update last active time
+
     conversations[customerPhone].lastActive = Date.now();
 
-    // Add customer message to history
+
     conversations[customerPhone].messages.push({
       role: 'user',
       content: incomingMsg
     });
 
-    // Keep only last 20 messages to avoid hitting token limits
+
     if (conversations[customerPhone].messages.length > 20) {
       conversations[customerPhone].messages = conversations[customerPhone].messages.slice(-20);
     }
@@ -170,7 +170,7 @@ app.post('/whatsapp', async (req, res) => {
     const data = await response.json() as any;
     const reply = data.content?.[0]?.text || 'Sorry, I could not process that. Please try again.';
 
-    // Add bot reply to history
+
     conversations[customerPhone].messages.push({
       role: 'assistant',
       content: reply
